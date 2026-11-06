@@ -34,3 +34,10 @@ Atom entries may contain multiple `<link>` siblings. The library prefers `rel="a
 - `normalizeEntry(xml: string): { id: string, title: string, link: string, summary: string, updated: string }`
 
 Throws if the XML contains no `<item>` or `<entry>` element, or if the XML is malformed (unbalanced tags, unterminated CDATA).
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
